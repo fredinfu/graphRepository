@@ -2,13 +2,14 @@
 <html>
 
 <head>
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script data-require="angular.js@1.3.14" data-semver="1.3.14" src="https://code.angularjs.org/snapshot/angular.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
   <script src="script.js"></script>
 </head>
 
 <body ng-app="GraphApp" ng-controller="GraphCtrl">
   <div ng-init="initiateData()">
-  	<select ng-model="selectedCategory" ng-change="filterProducts()">
+  	<select ng-model="selectedCategory.category" ng-change="filterProducts()">
   		<option ng-repeat="c in categories">{{c.category}}</option>
   	</select>
 
@@ -16,9 +17,12 @@
   		<option ng-repeat="p in filteredProducts">{{p.product}}</option>
   	</select>
 
-  	<select ng-model="selectedBrand" ng-change="graph()">
+  	<select ng-model="selectedBrand" ng-change="updateGraph()">
   		<option ng-repeat="b in filteredBrands">{{b.brand}}</option>
   	</select>
+
+  	<canvas id="canvas"></canvas>
+
   </div>
 </body>
 </html>

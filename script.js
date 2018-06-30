@@ -67,8 +67,6 @@ app.controller('GraphCtrl', ['$scope', function($scope) {
 		$scope.sales.push({brand: 'Fruta2', month: 'March', sales: 100});
 		$scope.sales.push({brand: 'Fruta2', month: 'April', sales: 300});
 
-		$scope.filterProducts();
-		$scope.filterBrands();
 	}
 
 	$scope.filterProducts = function(){
@@ -77,6 +75,47 @@ app.controller('GraphCtrl', ['$scope', function($scope) {
 
 	$scope.filterBrands = function(){
 		$scope.filteredBrands = $scope.brands.filter(f => f.product == $scope.selectedProduct);
-	}  
+		//$scope.updateGraph();
+	} 
+
+	$scope.initCategory = function(){
+		$scope.selectedCategory = $scope.categories[0];
+	}
+
+	$scope.updateGraph = function(){
+		var jsonfile = {
+		   "jsonarray": [{
+		      "name": "Joe",
+		      "age": 12
+		   }, {
+		      "name": "Tom",
+		      "age": 14
+		   }]
+		};
+
+		var sales = $scope.sales.filter(f => f.brand == $scope.selectedBrand);
+
+		var labels = sales.map(function(e) {
+		   return e.month;
+		});
+		var data = sales.map(function(e) {
+		   return e.sales;
+		});;
+
+		var ctx = canvas.getContext('2d');
+		var config = {
+		   type: 'line',
+		   data: {
+		      labels: labels,
+		      datasets: [{
+		         label: 'Graph Line',
+		         data: data,
+		         backgroundColor: 'rgba(0, 119, 204, 0.3)'
+		      }]
+		   }
+		};
+
+		var chart = new Chart(ctx, config);
+	} 
 
 }]);
