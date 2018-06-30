@@ -7,6 +7,18 @@
 </head>
 
 <body ng-app="GraphApp" ng-controller="GraphCtrl">
-  
+  <div ng-init="initiateData()">
+  	<select ng-model="selectedCategory" ng-change="filterProducts()">
+  		<option ng-repeat="c in categories">{{c.category}}</option>
+  	</select>
+
+  	<select ng-model="selectedProduct" ng-change="filterBrand()">
+  		<option ng-repeat="p in products">{{p.product}}</option>
+  	</select>
+
+  	<select ng-model="selectedBrand" ng-change="graph()">
+  		<option ng-repeat="b in brands">{{b.brand}}</option>
+  	</select>
+  </div>
 </body>
 </html>
