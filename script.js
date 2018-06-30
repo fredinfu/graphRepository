@@ -6,6 +6,9 @@ app.controller('GraphCtrl', ['$scope', function($scope) {
 		$scope.products = [];
 		$scope.brands = [];
 
+		$scope.filteredProducts = [];
+		$scope.filteredBrands = [];
+
 		$scope.categories.push({category: 'Ropa'});
 		$scope.categories.push({category: 'Comida'});
 
@@ -25,6 +28,14 @@ app.controller('GraphCtrl', ['$scope', function($scope) {
 
 		$scope.brands.push({product: 'Fruta', brand: 'Fruta1'})
 		$scope.brands.push({product: 'Fruta', brand: 'Fruta2'})
+	}
+
+	$scope.filterProducts = function(){
+		$scope.filteredProducts = $scope.products.filter(f => f.category == $scope.selectedCategory);
+	}  
+
+	$scope.filterBrands = function(){
+		$scope.filteredBrands = $scope.brands.filter(f => f.product == $scope.selectedProduct);
 	}  
 
 }]);
