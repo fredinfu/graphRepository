@@ -13,10 +13,14 @@ app.controller('GraphCtrl', ['$scope', function($scope) {
 		$scope.categories.push({category: 'Ropa'});
 		$scope.categories.push({category: 'Comida'});
 
+		$scope.selectedCategory = $scope.categories[0];
+
 		$scope.products.push({category: 'Ropa', product: 'Camisa'});
 		$scope.products.push({category: 'Ropa', product: 'Pantalon'});
 		$scope.products.push({category: 'Comida', product: 'Carne'});
 		$scope.products.push({category: 'Comida', product: 'Fruta'});
+
+		$scope.filterProducts();
 
 		$scope.brands.push({product: 'Camisa', brand: 'camisa1'});
 		$scope.brands.push({product: 'Camisa', brand: 'camisa2'});
@@ -29,6 +33,8 @@ app.controller('GraphCtrl', ['$scope', function($scope) {
 
 		$scope.brands.push({product: 'Fruta', brand: 'Fruta1'});
 		$scope.brands.push({product: 'Fruta', brand: 'Fruta2'});
+
+		$scope.filterBrands();
 
 		$scope.sales.push({brand: 'camisa1', month: 'January', sales: 350});
 		$scope.sales.push({brand: 'camisa1', month: 'February', sales: 300});
@@ -67,31 +73,22 @@ app.controller('GraphCtrl', ['$scope', function($scope) {
 		$scope.sales.push({brand: 'Fruta2', month: 'March', sales: 100});
 		$scope.sales.push({brand: 'Fruta2', month: 'April', sales: 300});
 
+		//$scope.updateGraph();
 	}
 
 	$scope.filterProducts = function(){
-		$scope.filteredProducts = $scope.products.filter(f => f.category == $scope.selectedCategory);
+		$scope.filteredProducts = $scope.products.filter(f => f.category == $scope.selectedCategory.category);
+		$scope.selectedProduct = $scope.filteredProducts[0];
+		$scope.filterBrands();
 	}  
 
 	$scope.filterBrands = function(){
-		$scope.filteredBrands = $scope.brands.filter(f => f.product == $scope.selectedProduct);
+		$scope.filteredBrands = $scope.brands.filter(f => f.product == $scope.selectedProduct.product);
+		$scope.selectedBrand = $scope.filteredBrands[0];
 		//$scope.updateGraph();
 	} 
 
-	$scope.initCategory = function(){
-		$scope.selectedCategory = $scope.categories[0];
-	}
-
 	$scope.updateGraph = function(){
-		var jsonfile = {
-		   "jsonarray": [{
-		      "name": "Joe",
-		      "age": 12
-		   }, {
-		      "name": "Tom",
-		      "age": 14
-		   }]
-		};
 
 		var sales = $scope.sales.filter(f => f.brand == $scope.selectedBrand);
 
@@ -108,7 +105,7 @@ app.controller('GraphCtrl', ['$scope', function($scope) {
 		   data: {
 		      labels: labels,
 		      datasets: [{
-		         label: 'Graph Line',
+		         label: $scope.selectedBrand,
 		         data: data,
 		         backgroundColor: 'rgba(0, 119, 204, 0.3)'
 		      }]

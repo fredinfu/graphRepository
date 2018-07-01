@@ -9,12 +9,12 @@
 
 <body ng-app="GraphApp" ng-controller="GraphCtrl">
   <div ng-init="initiateData()">
-  	<select ng-model="selectedCategory.category" ng-change="filterProducts()">
-  		<option ng-repeat="c in categories">{{c.category}}</option>
+  	<select ng-model="selectedCategory" ng-change="filterProducts()" ng-options="c.category for c in categories">
+  		<!-- <option ng-repeat="c in categories">{{c.category}}</option> -->
   	</select>
 
-  	<select ng-model="selectedProduct" ng-change="filterBrands()">
-  		<option ng-repeat="p in filteredProducts">{{p.product}}</option>
+  	<select ng-model="selectedProduct" ng-change="filterBrands()" ng-options="p.product for p in filteredProducts">
+  		<!-- <option ng-repeat="p in filteredProducts">{{p.product}}</option> -->
   	</select>
 
   	<select ng-model="selectedBrand" ng-change="updateGraph()">
